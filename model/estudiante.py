@@ -1,5 +1,6 @@
 from utils.db import db
 from dataclasses import dataclass
+from datetime import datetime
 
 @dataclass
 class tbEstudiante(db.Model):

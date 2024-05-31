@@ -16,7 +16,7 @@ def getEstudiantes():
     Estudiantes = tbEstudiante.query.all()
     result["data"] = Estudiantes
     result["status_code"] = 200
-    result["msg"] = "Se recupero los estudiantes sin incovenientes"
+    result["msg"] = "Se recupero los datos sin incovenientes"
     return jsonify(result), 200
 
 @estudiantes.route('/Estudiantes/v1/insert', methods=['POST'])
