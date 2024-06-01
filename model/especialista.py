@@ -16,7 +16,7 @@ class tbEspecialistas(db.Model):
     correoEspecialista=db.Column(db.String(100))
     contraseñaEspecialista=db.Column(db.String(100))
 
-    def _init_(self, nombreEspecialista, apellidoEspecialista, correoEspecialista, contraseñaEspecialista):
+    def __init__(self, nombreEspecialista, apellidoEspecialista, correoEspecialista, contraseñaEspecialista):
         self.nombreEspecialista=nombreEspecialista
         self.apellidoEspecialista=apellidoEspecialista
         self.correoEspecialista=correoEspecialista
