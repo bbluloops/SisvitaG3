@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class tbTest(db.Model):
+    __tablename__ = 'tbTest' 
     idTest: int
     autorTest: str
     descripcionTest: str

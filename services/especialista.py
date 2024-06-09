@@ -96,3 +96,27 @@ def delete():
     result['status_code'] = 200
     result["msg"] = "Se eliminó al especialista"
     return jsonify(result), 200
+
+@especialistas.route('/Especialistas/v1/login', methods=['POST'])
+def login():
+    result={}
+    body = request.get_json()
+    correoEspecialista = body.get('correoEspecialista')
+    contraseñaEspecialista = body.get('contraseñaEspecialista')
+
+    if not correoEspecialista or not contraseñaEspecialista:
+        result["status_code"] = 400
+        result["msg"] = "Faltan datos"
+        return jsonify(result), 400
+
+    Especialista = tbEspecialistas.query.filter_by(correoEspecialista=correoEspecialista).first()
+
+    if Especialista and Especialista.contraseñaEspecialista == contraseñaEspecialista:
+        result["data"] = Especialista
+        result["status_code"] = 200
+        result["msg"] = "Inicio de sesión exitoso"
+        return jsonify(result),200
+    
+    result["status_code"]=401
+    result["msg"]="Correo o contraseña incorrectos"
+    return jsonify(result),401
