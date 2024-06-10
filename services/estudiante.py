@@ -95,3 +95,27 @@ def delete():
     result["status_code"]=200
     result["msg"]="Se eliminó el contacto"
     return jsonify(result),200
+
+@estudiantes.route('/Estudiantes/v1/login', methods=['POST'])
+def login():
+    result={}
+    body = request.get_json()
+    correoEstudiante = body.get('correoEstudiante')
+    contraseñaEstudiante = body.get('contraseñaEstudiante')
+
+    if not correoEstudiante or not contraseñaEstudiante:
+        result["status_code"] = 400
+        result["msg"] = "Faltan datos"
+        return jsonify(result), 400
+
+    Estudiante = tbEstudiante.query.filter_by(correoEstudiante=correoEstudiante).first()
+
+    if Estudiante and Estudiante.contraseñaEstudiante == contraseñaEstudiante:
+        result["data"] = Estudiante
+        result["status_code"] = 200
+        result["msg"] = "Inicio de sesión exitoso"
+        return jsonify(result),200
+    
+    result["status_code"]=401
+    result["msg"]="Correo o contraseña incorrectos"
+    return jsonify(result),401

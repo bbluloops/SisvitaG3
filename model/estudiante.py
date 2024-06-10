@@ -4,6 +4,7 @@ from datetime import datetime
 
 @dataclass
 class tbEstudiante(db.Model):
+    __tablename__ = 'tbEstudiante' 
     idEstudiante: int
     nombreEstudiante: str
     apellidoEstudiante: str
