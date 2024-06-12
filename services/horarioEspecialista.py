@@ -7,7 +7,7 @@ HorariosEspecialistas = Blueprint('HorariosEspecialistas', __name__)
 @HorariosEspecialistas.route('/HorariosEspecialistas/v1',methods=['GET'])
 def getMensaje():
     result = {}
-    result["data"] ='sisvitag3'
+    result["data"] = 'sisvitag3'
     return jsonify(result)
 
 @HorariosEspecialistas.route('/HorariosEspecialistas/v1/listar', methods=['GET'])
