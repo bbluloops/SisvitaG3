@@ -10,14 +10,16 @@ def getMensaje():
     result={}
     result["data"]='sisvitag3'
     return jsonify(result)
+
 @OpcionesTests.route('/OpcionesTests/v1/listar', methods=['GET'])
 def getOpcionesTest():
     result={}
     OpcionesTests=tbOpcionesTest.query.all()
     result["data"]=OpcionesTests
     result["status_code"]=200
-    result["msg"]="Se recupero las opciones del test sin inconvenientes"
+    result["msg"]="Se recupero las opciones de los test sin inconvenientes"
     return jsonify(result),200
+
 @OpcionesTests.route('/OpcionesTests/v1/insert', methods=['POST'])
 def insertOpcionesTest():
     result = {}
@@ -36,8 +38,9 @@ def insertOpcionesTest():
     db.session.commit()
     result["data"] = opcionesTest
     result["status_code"] = 201
-    result["msg"] = "Se agrego las opciones del test"
+    result["msg"] = "Se agrego la opción del test"
     return jsonify(result), 201
+
 @OpcionesTests.route('/OpcionesTests/v1/update', methods=['POST'])
 def updateOpcionesTests():
     result = {}
@@ -55,7 +58,7 @@ def updateOpcionesTests():
     opcionesTest = tbOpcionesTest.query.get(idOpcionTest)
     if not opcionesTest:
         result['status_code'] = 400
-        result["msg"] = "no existen opciones del test"
+        result["msg"] = "La opción del test no existe"
         return jsonify(result), 400
     
     opcionesTest.idOpcionTest = idOpcionTest
@@ -66,7 +69,7 @@ def updateOpcionesTests():
 
     result["data"] = opcionesTest
     result["status_code"] = 202
-    result["msg"] = "Se modificó las opciones del test "
+    result["msg"] = "Se modificó la opción del test "
     return jsonify(result), 202
 
 @OpcionesTests.route('/OpcionesTests/v1/delete', methods=['DELETE'])
@@ -76,13 +79,13 @@ def deleteOpcionesTests():
     idOpcionTest=body.get('idOpcionTest')
     if not idOpcionTest:
         result["status_code"]=400
-        result["msg"]="Debe consignar un id de las opciones del test"
+        result["msg"]="Debe consignar un id valido"
         return jsonify(result),400
 
     opcionesTest=tbOpcionesTest.query.get(idOpcionTest)
     if not opcionesTest:
         result["status_code"]=400
-        result["msg"]="No existe opciones test"
+        result["msg"]="La opción no existe"
         return jsonify(result),400
     
     db.session.delete(opcionesTest)
@@ -90,5 +93,5 @@ def deleteOpcionesTests():
 
     result["data"]=opcionesTest
     result["status_code"]=200
-    result["msg"]="Se eliminó opciones test"
+    result["msg"]="Se eliminó la opción"
     return jsonify(result),200
