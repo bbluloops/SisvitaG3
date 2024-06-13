@@ -9,7 +9,7 @@ class tbEstadoCita(db.Model):
     estadoCita: str
 
     idEstadoCita = db.Column(db.Integer, primary_key=True)
-    idCita = db.Column(db.Integer, db.ForeignKey('cita.idCita'))
+    idCita = db.Column(db.Integer, db.ForeignKey('tbCita.idCita'))
     estadoCita = db.Column(db.String(30))
 
     def __init__(self, idCita, estadoCita):

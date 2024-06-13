@@ -13,8 +13,8 @@ def getMensaje():
 @Especialidades.route('/Especialidades/v1/listar', methods=['GET'])
 def getEspecialidades():
     result = {}
-    Especialidades = tbEspecialidad.query.all()
-    result["data"] = Especialidades
+    especialidades = tbEspecialidad.query.all()
+    result["data"] = especialidades
     result["status_code"] = 200
     result["msg"] = "Se recuperaron los datos sin inconvenientes"
     return jsonify(result), 200

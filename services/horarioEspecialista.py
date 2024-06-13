@@ -13,8 +13,8 @@ def getMensaje():
 @HorariosEspecialistas.route('/HorariosEspecialistas/v1/listar', methods=['GET'])
 def getHorariosEspecialistas():
     result = {}
-    HorariosEspecialistas = tbHorarioEspecialista.query.all()
-    result["data"] = HorariosEspecialistas
+    horariosEspecialistas = tbHorarioEspecialista.query.all()
+    result["data"] = horariosEspecialistas
     result["status_code"] = 200
     result["msg"] = "Se recupero los horarios de los especialistas sin inconvenientes"
     return jsonify(result), 200

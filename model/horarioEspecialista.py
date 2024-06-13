@@ -12,7 +12,7 @@ class tbHorarioEspecialista(db.Model):
     horaFinHorarioEspecialista: datetime
 
     idHorarioEspecialista = db.Column(db.Integer, primary_key=True)
-    idEspecialista = db.Column(db.Integer, db.ForeignKey('especialista.idEspecialista'))
+    idEspecialista = db.Column(db.Integer, db.ForeignKey('tbEspecialistas.idEspecialista'))
     diaHorarioEspecialista = db.Column(db.Date)
     horaInicioHorarioEspecialista = db.Column(db.DateTime)
     horaFinHorarioEspecialista = db.Column(db.DateTime)

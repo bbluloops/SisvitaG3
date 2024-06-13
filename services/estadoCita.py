@@ -13,8 +13,8 @@ def getMensaje():
 @EstadosCita.route('/EstadosCita/v1/listar', methods=['GET'])
 def getEstadosCita():
     result = {}
-    EstadosCita = tbEstadoCita.query.all()
-    result["data"] = EstadosCita
+    estadosCita = tbEstadoCita.query.all()
+    result["data"] = estadosCita
     result["status_code"] = 200
     result["msg"] = "Se recuperaron los datos sin inconvenientes"
     return jsonify(result), 200
