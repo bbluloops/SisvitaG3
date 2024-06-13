@@ -10,7 +10,7 @@ class tbOpcionesTest(db.Model):
     puntajeOpcionTest: float
 
     idOpcionTest = db.Column(db.Integer, primary_key=True)
-    idPreguntaTest = db.Column(db.Integer, db.ForeignKey('preguntasTest.idPreguntaTest'))
+    idPreguntaTest = db.Column(db.Integer, db.ForeignKey('tbPreguntasTest.idPreguntaTest'))
     respuestaOpcionTest = db.Column(db.String(255))
     puntajeOpcionTest = db.Column(db.Numeric)
 

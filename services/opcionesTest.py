@@ -13,8 +13,8 @@ def getMensaje():
 @OpcionesTests.route('/OpcionesTests/v1/listar', methods=['GET'])
 def getOpcionesTest():
     result={}
-    OpcionesTests=tbOpcionesTest.query.all()
-    result["data"]=OpcionesTests
+    OpcionTests=tbOpcionesTest.query.all()
+    result["data"]=OpcionTests
     result["status_code"]=200
     result["msg"]="Se recupero las opciones del test sin inconvenientes"
     return jsonify(result),200
@@ -31,10 +31,10 @@ def insertOpcionesTest():
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
-    opcionesTest = tbOpcionesTest(idPreguntaTest, respuestaOpcionTest, puntajeOpcionTest)
-    db.session.add(opcionesTest)
+    opcionTest = tbOpcionesTest(idPreguntaTest, respuestaOpcionTest, puntajeOpcionTest)
+    db.session.add(opcionTest)
     db.session.commit()
-    result["data"] = opcionesTest
+    result["data"] = opcionTest
     result["status_code"] = 201
     result["msg"] = "Se agrego las opciones del test"
     return jsonify(result), 201
@@ -52,19 +52,19 @@ def updateOpcionesTests():
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
     
-    opcionesTest = tbOpcionesTest.query.get(idOpcionTest)
-    if not opcionesTest:
+    opcionesTestss = tbOpcionesTest.query.get(idOpcionTest)
+    if not opcionesTestss:
         result['status_code'] = 400
         result["msg"] = "no existen opciones del test"
         return jsonify(result), 400
     
-    opcionesTest.idOpcionTest = idOpcionTest
-    opcionesTest.idPreguntaTest = idPreguntaTest
-    opcionesTest.respuestaOpcionTest = respuestaOpcionTest
-    opcionesTest.puntajeOpcionTest = puntajeOpcionTest
+   # opcionesTestss.idOpcionTest = idOpcionTest
+    opcionesTestss.idPreguntaTest = idPreguntaTest
+    opcionesTestss.respuestaOpcionTest = respuestaOpcionTest
+    opcionesTestss.puntajeOpcionTest = puntajeOpcionTest
     db.session.commit()
 
-    result["data"] = opcionesTest
+    result["data"] = opcionesTestss
     result["status_code"] = 202
     result["msg"] = "Se modificó las opciones del test "
     return jsonify(result), 202
@@ -79,16 +79,16 @@ def deleteOpcionesTests():
         result["msg"]="Debe consignar un id de las opciones del test"
         return jsonify(result),400
 
-    opcionesTest=tbOpcionesTest.query.get(idOpcionTest)
-    if not opcionesTest:
+    opcionTestss=tbOpcionesTest.query.get(idOpcionTest)
+    if not opcionTestss:
         result["status_code"]=400
         result["msg"]="No existe opciones test"
         return jsonify(result),400
     
-    db.session.delete(opcionesTest)
+    db.session.delete(opcionTestss)
     db.session.commit()
 
-    result["data"]=opcionesTest
+    result["data"]=opcionTestss
     result["status_code"]=200
     result["msg"]="Se eliminó opciones test"
     return jsonify(result),200

@@ -13,8 +13,8 @@ def getMensaje():
 @Tests.route('/Tests/v1/listar',methods=['GET'])
 def getTests():
     result={}
-    Tests=tbTest.query.all()
-    result["data"]=Tests
+    test=tbTest.query.all()
+    result["data"]=test
     result["status_code"]=200
     result["msg"]="Se recupero los tests sin inconvenientes"
     return jsonify(result),200

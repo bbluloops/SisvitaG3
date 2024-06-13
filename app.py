@@ -4,6 +4,7 @@ from services.estudiante import estudiantes
 from services.Test import Tests
 from services.opcionesTest import OpcionesTests
 from services.especialista import especialistas
+from services.preguntasTest import PreguntasTests
 from config import DATABASE_CONNECTION
 
 app=Flask(__name__)
@@ -15,7 +16,7 @@ app.register_blueprint(estudiantes)
 app.register_blueprint(Tests)
 app.register_blueprint(OpcionesTests)
 app.register_blueprint(especialistas)
-
+app.register_blueprint(PreguntasTests)
 with app.app_context():
     # Crea todas las tablas definidas en los modelos
     db.create_all()
