@@ -8,6 +8,7 @@ from services.preguntasTest import PreguntasTests
 from services.horarioEspecialista import HorariosEspecialistas
 from services.especialidad import Especialidades
 from services.estadoCita import EstadosCita
+from services.rangosPuntaje import RangosPuntajes
 from config import DATABASE_CONNECTION
 
 app=Flask(__name__)
@@ -23,7 +24,7 @@ app.register_blueprint(PreguntasTests)
 app.register_blueprint(HorariosEspecialistas)
 app.register_blueprint(Especialidades)
 app.register_blueprint(EstadosCita)
-
+app.register_blueprint(RangosPuntajes)
 with app.app_context():
     # Crea todas las tablas definidas en los modelos
     db.create_all()
