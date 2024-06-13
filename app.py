@@ -10,6 +10,7 @@ from services.especialidad import Especialidades
 from services.estadoCita import EstadosCita
 from services.rangosPuntaje import RangosPuntajes
 from services.respuestasTest import RespuestasTests
+from services.resultadoTest import ResultadoTests
 from config import DATABASE_CONNECTION
 
 app=Flask(__name__)
@@ -27,6 +28,7 @@ app.register_blueprint(Especialidades)
 app.register_blueprint(EstadosCita)
 app.register_blueprint(RangosPuntajes)
 app.register_blueprint(RespuestasTests)
+app.register_blueprint(ResultadoTests)
 with app.app_context():
     # Crea todas las tablas definidas en los modelos
     db.create_all()
