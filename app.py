@@ -16,8 +16,8 @@ from services.recomendacionApoyo import RecomendacionesApoyos
 from services.registroSesiones import RegistrosSesiones
 from config import DATABASE_CONNECTION
 
-app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']=DATABASE_CONNECTION
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION
 
 db.init_app(app)
 
@@ -35,9 +35,10 @@ app.register_blueprint(ResultadoTests)
 app.register_blueprint(Citas)
 app.register_blueprint(RecomendacionesApoyos)
 app.register_blueprint(RegistrosSesiones)
+
 with app.app_context():
     # Crea todas las tablas definidas en los modelos
     db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=5000)
+    app.run(host='0.0.0.0', port=5000)
