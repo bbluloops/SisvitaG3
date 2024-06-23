@@ -61,7 +61,6 @@ def update():
         result["msg"] = "test no existe"
         return jsonify(result), 400
 
-    Test.idTest = idTest
     Test.autorTest = autorTest
     Test.descripcionTest = descripcionTest
     Test.nombreTest = nombreTest

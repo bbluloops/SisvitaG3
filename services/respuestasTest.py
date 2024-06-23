@@ -25,17 +25,16 @@ def insertRespuestasTest():
     result = {}
     body = request.get_json()
     idTest = body.get('idTest')
-    idRegistroSesiones = body.get('idRegistroSesiones')
     idResultadoTest = body.get('idResultadoTest')
     respuestas = body.get('respuestas')
     valorRespuesta = body.get('valorRespuesta')
 
-    if not idTest or not idRegistroSesiones or not idResultadoTest or not respuestas or not valorRespuesta:
+    if not idTest or not idResultadoTest or not respuestas or not valorRespuesta:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
-    respuestaTest = tbRespuestasTest(idTest, idRegistroSesiones, idResultadoTest, respuestas, valorRespuesta)
+    respuestaTest = tbRespuestasTest(idTest, idResultadoTest, respuestas, valorRespuesta)
     db.session.add(respuestaTest)
     db.session.commit()
     result["data"] = respuestaTest
@@ -49,12 +48,11 @@ def updateRespuestasTests():
     body = request.get_json()
     idRespuestas = body.get('idRespuestas')
     idTest = body.get('idTest')
-    idRegistroSesiones = body.get('idRegistroSesiones')
     idResultadoTest = body.get('idResultadoTest')
     respuestas = body.get('respuestas')
     valorRespuesta = body.get('valorRespuesta')
 
-    if not idRespuestas or not idTest or not idRegistroSesiones or not idResultadoTest or not respuestas or not valorRespuesta:
+    if not idRespuestas or not idTest or not idResultadoTest or not respuestas or not valorRespuesta:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
@@ -66,7 +64,6 @@ def updateRespuestasTests():
         return jsonify(result), 400
 
     respuestasTests.idTest = idTest
-    respuestasTests.idRegistroSesiones = idRegistroSesiones
     respuestasTests.idResultadoTest = idResultadoTest
     respuestasTests.respuestas = respuestas
     respuestasTests.valorRespuesta = valorRespuesta

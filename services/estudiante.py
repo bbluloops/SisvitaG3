@@ -27,13 +27,14 @@ def insert():
     apellidoEstudiante = body.get('apellidoEstudiante')
     correoEstudiante = body.get('correoEstudiante')
     contraseñaEstudiante = body.get('contraseñaEstudiante')
+    Ubigeo = body.get('Ubigeo')
 
-    if not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante:
+    if not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not Ubigeo:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
-    Estudiante = tbEstudiante(nombreEstudiante, apellidoEstudiante, correoEstudiante, contraseñaEstudiante)
+    Estudiante = tbEstudiante(nombreEstudiante, apellidoEstudiante, correoEstudiante, contraseñaEstudiante, Ubigeo)
     db.session.add(Estudiante)
     db.session.commit()
     result["data"] = Estudiante
@@ -50,8 +51,9 @@ def update():
     apellidoEstudiante = body.get('apellidoEstudiante')
     correoEstudiante = body.get('correoEstudiante')
     contraseñaEstudiante = body.get('contraseñaEstudiante')
+    Ubigeo = body.get('Ubigeo')
 
-    if not idEstudiante or not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante:
+    if not idEstudiante or not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not Ubigeo:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400  
@@ -66,6 +68,7 @@ def update():
     Estudiante.apellidoEstudiante = apellidoEstudiante
     Estudiante.correoEstudiante = correoEstudiante
     Estudiante.contraseñaEstudiante = contraseñaEstudiante
+    Estudiante.Ubigeo = Ubigeo
     db.session.commit()
 
     result["data"] = Estudiante

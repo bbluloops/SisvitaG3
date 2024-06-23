@@ -27,13 +27,15 @@ def insertResultadoTest():
     puntajeResultadoTest = body.get('puntajeResultadoTest')
     infoResultado = body.get('infoResultado')
     fechaResultadoTest = body.get('fechaResultadoTest')
+    idRegistroSesiones = body.get('idRegistroSesiones')
+    revisadoResultadoTest = body.get('revisadoResultadoTest')
 
-    if not puntajeResultadoTest or not infoResultado or not fechaResultadoTest:
+    if not puntajeResultadoTest or not infoResultado or not fechaResultadoTest or not idRegistroSesiones or not revisadoResultadoTest:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
-    resultadotest = tbResultadoTest(puntajeResultadoTest, infoResultado, fechaResultadoTest)
+    resultadotest = tbResultadoTest(puntajeResultadoTest, infoResultado, fechaResultadoTest, idRegistroSesiones, revisadoResultadoTest)
     db.session.add(resultadotest)
     db.session.commit()
     result["data"] = resultadotest
@@ -49,8 +51,10 @@ def updateResultadoTests():
     puntajeResultadoTest = body.get('puntajeResultadoTest')
     infoResultado = body.get('infoResultado')
     fechaResultadoTest = body.get('fechaResultadoTest')
+    idRegistroSesiones = body.get('idRegistroSesiones')
+    revisadoResultadoTest = body.get('revisadoResultadoTest')
 
-    if not idResultadoTest or not puntajeResultadoTest or not infoResultado or not fechaResultadoTest:
+    if not idResultadoTest or not puntajeResultadoTest or not infoResultado or not fechaResultadoTest or not idRegistroSesiones or not revisadoResultadoTest:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
@@ -64,6 +68,8 @@ def updateResultadoTests():
     resultadosTest.puntajeResultadoTest = puntajeResultadoTest
     resultadosTest.infoResultado = infoResultado
     resultadosTest.fechaResultadoTest = fechaResultadoTest
+    resultadosTest.idRegistroSesiones = idRegistroSesiones
+    resultadosTest.revisadoResultadoTest = revisadoResultadoTest
     db.session.commit()
 
     result["data"] = resultadosTest

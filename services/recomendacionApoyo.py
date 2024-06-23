@@ -24,17 +24,18 @@ def insertRecomendacionesApoyos():
     result = {}
     body = request.get_json()
     idEspecialista = body.get('idEspecialista')
-    idRespuestas = body.get('idRespuestas')
+    idResultadoTest = body.get('idResultadoTest')
     descripcionRecomendacionApoyo = body.get('descripcionRecomendacionApoyo')
     fechaInicioRecomendacionApoyo = body.get('fechaInicioRecomendacionApoyo')
     fechaFinRecomendacionApoyo = body.get('fechaFinRecomendacionApoyo')
+    nivelAnsiedadRevision = body.get('nivelAnsiedadRevision')
 
-    if not idEspecialista or not idRespuestas or not descripcionRecomendacionApoyo or not fechaInicioRecomendacionApoyo or not fechaFinRecomendacionApoyo:
+    if not idEspecialista or not idResultadoTest or not descripcionRecomendacionApoyo or not fechaInicioRecomendacionApoyo or not fechaFinRecomendacionApoyo or not nivelAnsiedadRevision:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
     
-    RecomendacionApoyo = tbRecomendacionApoyoTratamiento(idEspecialista, idRespuestas, descripcionRecomendacionApoyo, fechaInicioRecomendacionApoyo, fechaFinRecomendacionApoyo)
+    RecomendacionApoyo = tbRecomendacionApoyoTratamiento(idEspecialista, idResultadoTest, descripcionRecomendacionApoyo, fechaInicioRecomendacionApoyo, fechaFinRecomendacionApoyo, nivelAnsiedadRevision)
     db.session.add(RecomendacionApoyo)
     db.session.commit()
     result["data"] = RecomendacionApoyo
@@ -48,12 +49,13 @@ def updateRecomendacionesApoyos():
     body = request.get_json()
     idRecomendacionApoyo = body.get('idRecomendacionApoyo')
     idEspecialista = body.get('idEspecialista')
-    idRespuestas = body.get('idRespuestas')
+    idResultadoTest = body.get('idResultadoTest')
     descripcionRecomendacionApoyo = body.get('descripcionRecomendacionApoyo')
     fechaInicioRecomendacionApoyo = body.get('fechaInicioRecomendacionApoyo')
     fechaFinRecomendacionApoyo = body.get('fechaFinRecomendacionApoyo')
+    nivelAnsiedadRevision = body.get('nivelAnsiedadRevision')
 
-    if not idRecomendacionApoyo or not idEspecialista or not idRespuestas or not descripcionRecomendacionApoyo or not fechaInicioRecomendacionApoyo or not fechaFinRecomendacionApoyo:
+    if not idRecomendacionApoyo or not idEspecialista or not idResultadoTest or not descripcionRecomendacionApoyo or not fechaInicioRecomendacionApoyo or not fechaFinRecomendacionApoyo or not nivelAnsiedadRevision:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
@@ -65,10 +67,11 @@ def updateRecomendacionesApoyos():
         return jsonify(result), 400
     
     RecomendacionApoyo.idEspecialista = idEspecialista
-    RecomendacionApoyo.idRespuestas = idRespuestas
+    RecomendacionApoyo.idResultadoTest = idResultadoTest
     RecomendacionApoyo.descripcionRecomendacionApoyo = descripcionRecomendacionApoyo
     RecomendacionApoyo.fechaInicioRecomendacionApoyo = fechaInicioRecomendacionApoyo
     RecomendacionApoyo.fechaFinRecomendacionApoyo = fechaFinRecomendacionApoyo
+    RecomendacionApoyo.nivelAnsiedadRevision = nivelAnsiedadRevision
     db.session.commit()
 
     result["data"] = RecomendacionApoyo
