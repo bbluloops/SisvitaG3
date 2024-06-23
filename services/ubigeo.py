@@ -23,7 +23,7 @@ def getUbigeos():
 def insertUbigeos():
     result = {}
     body = request.get_json()
-    Ubigeo = body.get('Ubigeo')
+    idUbigeo = body.get('idUbigeo')
     Distrito = body.get('Distrito')
     Provincia = body.get('Provincia')
     Departamento = body.get('Departamento')
@@ -32,12 +32,12 @@ def insertUbigeos():
     X = body.get('X')
     Y = body.get('Y')
 
-    if not Ubigeo or not Distrito or not Provincia or not Departamento or not Poblacion or not Superficie or not X or not Y:
+    if not idUbigeo or not Distrito or not Provincia or not Departamento or not Poblacion or not Superficie or not X or not Y:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
     
-    ubigeo = tbUbigeo(Ubigeo, Distrito, Provincia, Departamento, Poblacion, Superficie, X, Y)
+    ubigeo = tbUbigeo(idUbigeo, Distrito, Provincia, Departamento, Poblacion, Superficie, X, Y)
     db.session.add(ubigeo)
     db.session.commit()
     result["data"] = ubigeo
@@ -49,7 +49,7 @@ def insertUbigeos():
 def updateUbigeos():
     result = {}
     body = request.get_json()
-    Ubigeo = body.get('Ubigeo')
+    idUbigeo = body.get('idUbigeo')
     Distrito = body.get('Distrito')
     Provincia = body.get('Provincia')
     Departamento = body.get('Departamento')
@@ -58,12 +58,12 @@ def updateUbigeos():
     X = body.get('X')
     Y = body.get('Y')
 
-    if not Ubigeo or not Distrito or not Provincia or not Departamento or not Poblacion or not Superficie or not X or not Y:
+    if not idUbigeo or not Distrito or not Provincia or not Departamento or not Poblacion or not Superficie or not X or not Y:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
     
-    ubigeo = tbUbigeo.query.get(Ubigeo)
+    ubigeo = tbUbigeo.query.get(idUbigeo)
     if not ubigeo:
         result['status_code'] = 400
         result["msg"] = "El ubigeo no existe"
@@ -87,13 +87,13 @@ def updateUbigeos():
 def deleteUbigeos():
     result = {}
     body = request.get_json()
-    Ubigeo = body.get('Ubigeo')
-    if not Ubigeo:
+    idUbigeo = body.get('idUbigeo')
+    if not idUbigeo:
         result['status_code'] = 400
         result["msg"] = "Debe consignar un ubigeo valido"
         return jsonify(result), 400
     
-    ubigeo = tbUbigeo.query.get(Ubigeo)
+    ubigeo = tbUbigeo.query.get(idUbigeo)
     if not ubigeo:
         result["status_code"] = 400
         result["msg"] = "El ubigeo no existe"

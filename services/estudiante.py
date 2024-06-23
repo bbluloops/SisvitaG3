@@ -27,14 +27,14 @@ def insert():
     apellidoEstudiante = body.get('apellidoEstudiante')
     correoEstudiante = body.get('correoEstudiante')
     contraseñaEstudiante = body.get('contraseñaEstudiante')
-    Ubigeo = body.get('Ubigeo')
+    idUbigeo = body.get('idUbigeo')
 
-    if not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not Ubigeo:
+    if not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not idUbigeo:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
-    Estudiante = tbEstudiante(nombreEstudiante, apellidoEstudiante, correoEstudiante, contraseñaEstudiante, Ubigeo)
+    Estudiante = tbEstudiante(nombreEstudiante, apellidoEstudiante, correoEstudiante, contraseñaEstudiante, idUbigeo)
     db.session.add(Estudiante)
     db.session.commit()
     result["data"] = Estudiante
@@ -51,9 +51,9 @@ def update():
     apellidoEstudiante = body.get('apellidoEstudiante')
     correoEstudiante = body.get('correoEstudiante')
     contraseñaEstudiante = body.get('contraseñaEstudiante')
-    Ubigeo = body.get('Ubigeo')
+    idUbigeo = body.get('idUbigeo')
 
-    if not idEstudiante or not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not Ubigeo:
+    if not idEstudiante or not nombreEstudiante or not apellidoEstudiante or not correoEstudiante or not contraseñaEstudiante or not idUbigeo:
         result["status_code"] = 400
         result["msg"] = "Faltan datos"
         return jsonify(result), 400  
@@ -68,7 +68,7 @@ def update():
     Estudiante.apellidoEstudiante = apellidoEstudiante
     Estudiante.correoEstudiante = correoEstudiante
     Estudiante.contraseñaEstudiante = contraseñaEstudiante
-    Estudiante.Ubigeo = Ubigeo
+    Estudiante.idUbigeo = idUbigeo
     db.session.commit()
 
     result["data"] = Estudiante
@@ -107,7 +107,7 @@ def login():
     contraseñaEstudiante = body.get('contraseñaEstudiante')
 
     if not correoEstudiante or not contraseñaEstudiante:
-        result["status_code"] = 400
+        result["success"] = False
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
@@ -115,10 +115,10 @@ def login():
 
     if Estudiante and Estudiante.contraseñaEstudiante == contraseñaEstudiante:
         result["data"] = Estudiante
-        result["status_code"] = 200
+        result["success"] = True
         result["msg"] = "Inicio de sesión exitoso"
         return jsonify(result),200
     
-    result["status_code"]=401
+    result["success"]=False
     result["msg"]="Correo o contraseña incorrectos"
     return jsonify(result),401
