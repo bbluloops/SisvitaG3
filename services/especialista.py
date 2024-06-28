@@ -105,7 +105,7 @@ def login():
     contraseñaEspecialista = body.get('contraseñaEspecialista')
 
     if not correoEspecialista or not contraseñaEspecialista:
-        result["status_code"] = 400
+        result["success"] = False
         result["msg"] = "Faltan datos"
         return jsonify(result), 400
 
@@ -113,10 +113,10 @@ def login():
 
     if Especialista and Especialista.contraseñaEspecialista == contraseñaEspecialista:
         result["data"] = Especialista
-        result["status_code"] = 200
+        result["success"] = True
         result["msg"] = "Inicio de sesión exitoso"
         return jsonify(result),200
     
-    result["status_code"]=401
+    result["success"]=False
     result["msg"]="Correo o contraseña incorrectos"
     return jsonify(result),401
