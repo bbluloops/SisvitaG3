@@ -16,7 +16,8 @@ class tbResultadoTest(db.Model):
     puntajeResultadoTest = db.Column(db.Numeric)
     infoResultado = db.Column(db.String(100))
     fechaResultadoTest = db.Column(db.Date)
-    idRegistroSesiones = db.Column(db.Integer, db.ForeignKey('tbRegistroSesionesHistorial.idRegistroSesiones'))
+    idRegistroSesiones = db.Column(db.Integer, db.ForeignKey(
+        'tbRegistroSesionesHistorial.idRegistroSesiones'))
     revisadoResultadoTest = db.Column(db.Boolean)
 
     def __init__(self, puntajeResultadoTest, infoResultado, fechaResultadoTest, idRegistroSesiones, revisadoResultadoTest):

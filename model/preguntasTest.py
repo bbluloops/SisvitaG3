@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class tbPreguntasTest(db.Model):
     __tablename__ = 'tbPreguntasTest'
-    idPreguntaTest: int 
+    idPreguntaTest: int
     idTest: int
     enunciadoPreguntaTest: str
 

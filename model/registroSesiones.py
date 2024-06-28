@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class tbRegistroSesionesHistorial(db.Model):
     __tablename__ = 'tbRegistroSesionesHistorial'
-    idRegistroSesiones: int 
+    idRegistroSesiones: int
     idEstudiante: int
 
     idRegistroSesiones = db.Column(db.Integer, primary_key=True)
