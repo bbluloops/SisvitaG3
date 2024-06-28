@@ -103,7 +103,7 @@ def delete():
     result["msg"] = "Se eliminó el test"
     return jsonify(result), 200
 
-    @Tests.route('/Tests/v1/preguntas', methods=['POST'])
+@Tests.route('/Tests/v1/preguntas', methods=['POST'])
 def preguntas():
     result = {}
     body = request.get_json()
@@ -133,7 +133,7 @@ def preguntas():
             result[pregunta].append(opcionParcial)
     return jsonify(result), 200
 
-    @Tests.route('/Tests/v1/respuesta', methods=['POST'])
+@Tests.route('/Tests/v1/respuesta', methods=['POST'])
 def respuesta():
     result = {}
     body = request.get_json()
