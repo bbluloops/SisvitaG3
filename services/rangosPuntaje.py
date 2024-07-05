@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from model.rangosPuntaje import tbRangosPuntaje
+from model.Test import tbTest
 from utils.db import db
 
 # Definición de blueprint
@@ -97,3 +98,17 @@ def deleteRangosPuntajes():
     result["status_code"] = 200
     result["msg"] = "Se eliminó el rango"
     return jsonify(result), 200
+
+@RangosPuntajes.route('/RangosPuntajes/v1/obtener-nombre', methods=['GET'])
+def getByNombre():
+    result = {}
+    param = request.args.to_dict()
+    nombreTest = param["nombreTest"]
+    resultadoTest = (
+        db.session.query(tbRangosPuntaje)
+        .join(tbTest,tbTest.nombreTest == nombreTest)
+        .where(tbTest.idTest == tbRangosPuntaje.idTest)
+        .all()
+    )
+    result = resultadoTest
+    return result
