@@ -74,6 +74,17 @@ def updateRespuestasTests():
     result["msg"] = "Se modificó la respuesta del test"
     return jsonify(result), 202
 
+@RespuestasTests.route('/RespuestasTests/v1/obtener-por-resultado' , methods=['POST'])
+def obtener_por_resultado():
+    result = {}
+    body = request.get_json()
+    idResultado = body.get('idResultado')
+    if not idResultado:
+        return jsonify("Se debe consignar un id valido"),400
+    RespuestasTests= tbRespuestasTest.query.where(tbRespuestasTest.idResultadoTest==idResultado).all()
+    result = RespuestasTests
+    return result
+
 @RespuestasTests.route('/RespuestasTests/v1/delete', methods=['DELETE'])
 def deleteRespuestasTests():
     result = {}

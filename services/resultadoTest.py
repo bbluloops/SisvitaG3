@@ -1,5 +1,9 @@
 from flask import Blueprint, request, jsonify
 from model.resultadoTest import tbResultadoTest
+from model.registroSesiones import tbRegistroSesionesHistorial
+from model.estudiante import tbEstudiante
+from model.Test import tbTest
+from model.respuestasTest import tbRespuestasTest
 from utils.db import db
 
 # Definición de blueprint
@@ -18,6 +22,36 @@ def getResultadoTest():
     result["data"] = ResultadoTes
     result["status_code"] = 200
     result["msg"] = "Se recuperaron los resultados de los tests sin inconvenientes"
+    return jsonify(result), 200
+
+@ResultadoTests.route('/ResultadoTests/v1/obtener-resultados-detallados', methods=['GET'])
+def obtener_resultados_detallados():
+    result = []
+    # Adjust the join conditions
+    resultado_tests = (
+        db.session.query(tbResultadoTest)
+        .join(tbRegistroSesionesHistorial, tbResultadoTest.idRegistroSesiones == tbRegistroSesionesHistorial.idRegistroSesiones)
+        .join(tbEstudiante, tbRegistroSesionesHistorial.idEstudiante == tbEstudiante.idEstudiante)
+        .add_columns(tbEstudiante.nombreEstudiante,tbEstudiante.apellidoEstudiante)
+        .all()
+    )
+    # Convert the query result to a list of dictionaries (or another suitable format for jsonify)
+    for test in resultado_tests:
+        resultado = {}
+        testModel = (
+            db.session.query(tbTest)
+            .join(tbRespuestasTest, tbRespuestasTest.idResultadoTest == test[0].idResultadoTest)
+            .where(tbRespuestasTest.idTest == tbTest.idTest)
+            .first()
+        )
+        resultado["nombreTest"] = testModel.nombreTest if testModel else "No tiene nombre el test"
+        resultado["idResultadoTest"] = test[0].idResultadoTest
+        resultado["puntajeResultadoTest"] = test[0].puntajeResultadoTest
+        resultado["infoResultado"] = test[0].infoResultado
+        resultado["fechaResultado"] = test[0].fechaResultadoTest
+        resultado["nombreEstudiante"] = test[1]
+        resultado["apellidoEstudiante"] = test[2]
+        result.append(resultado)
     return jsonify(result), 200
 
 @ResultadoTests.route('/ResultadoTests/v1/insert', methods=['POST'])
